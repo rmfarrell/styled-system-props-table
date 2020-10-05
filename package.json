@@ -12,14 +12,17 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "parse-prop-types": "^0.3.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "parse-prop-types": "^0.3.0"
+  },
+  "peerDependencies": {
+    "styled-components": ">= 3",
+    "react": ">= 16",
+    "react-dom": ">= 16"
   },
   "name": "styled-system-props-table",
   "version": "0.0.2",
   "description": "Props table generator with styled-system decorator",
-  "main": "index.js",
+  "main": "dist/main.js",
   "scripts": {
     "build": "webpack --mode production"
   },

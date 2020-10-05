@@ -10,7 +10,7 @@ Docs add-on's props table generator](https://github.com/storybookjs/storybook/tr
 - Table has highlights custom props for faster readability
 - Extending prop descriptions is done in the component itself using JSX, rather than reading code hints from the source file at compile time.
 
-Compatible with `csf`, `docx`, or any `jsx`-compatible format.
+Compatible with `csf`, `mdx`, or any `jsx`-compatible format.
 
 ## Simple Example
 

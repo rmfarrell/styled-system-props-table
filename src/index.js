@@ -22,7 +22,7 @@ function StyledSystemPropsTable(props = {}) {
 }
 
 function PropsTablePresentation(props = {}) {
-  const { data = {}, children } = props;
+  const { data = {}, children = () => [] } = props;
 
   let remove = [];
 
@@ -38,7 +38,7 @@ function PropsTablePresentation(props = {}) {
         </tr>
       </StyledTHead>
       <tbody>
-        {render()}
+        {render(children(data))}
         {Object.entries(data)
           .filter(([key = '']) => !remove.includes(key))
           .map(([key = '', data = {}]) => {
@@ -52,8 +52,8 @@ function PropsTablePresentation(props = {}) {
     </StyledTable>
   );
 
-  function render() {
-    return children(data).map(child => {
+  function render(rows = []) {
+    return rows.map(child => {
       child.props.name;
       remove = [child.props.name, ...remove];
       return child;
@@ -89,5 +89,6 @@ const StyledTHead = styled.thead`
     font-size: 0.8em;
   }
 `;
+
 
 export { PropRow, PropsTable, StyledSystemPropsTable };
