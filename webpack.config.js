@@ -17,7 +17,6 @@ module.exports = {
         filename: 'main.js'
     },
     externals: [
-        // nodeExternals(),
         {
             react: {
                 root: 'React',
