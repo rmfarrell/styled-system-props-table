@@ -12,6 +12,12 @@ Docs add-on's props table generator](https://github.com/storybookjs/storybook/tr
 
 Compatible with `csf`, `mdx`, or any `jsx`-compatible format.
 
+## Install
+
+```
+yarn add styled-system-props-table
+```
+
 ## Simple Example
 
 Only one prop is required `component` which takes a React component.
