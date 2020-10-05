@@ -1,12 +1,12 @@
 {
   "devDependencies": {
     "@styled-system/theme-get": "^5.1.2",
-    "styled-components": "^5.0.0",
-    "styled-system": "^5.1.4"
+    "styled-components": "^5.2.0",
+    "styled-system": "^5.1.5"
   },
   "dependencies": {
     "parse-prop-types": "^0.3.0",
-    "react": "^16.12.0"
+    "react": "^16.13.1"
   },
   "name": "styled-system-props-table",
   "version": "0.0.1",

@@ -1,11 +1,6 @@
 import React from 'react';
-import { reduceEntriesToObject } from './helpers';
 
-/**
- *
- * @prop {object} data
- */
-function decorateStyledSystemPros(data = {}) {
+const decorateStyledSystemProps = (data = {}) => {
   const responsiveSpace = ['number', 'string', 'number[]', 'string[]'],
     responsiveString = ['string', 'string[]'],
     verbose = true,
@@ -288,7 +283,12 @@ function decorateStyledSystemPros(data = {}) {
   return mergeProperties(data, styledSystemDocs);
 }
 
-function addProperties(obj = {}, newProps = {}) {
+const reduceEntriesToObject = (acc, [key, value]) => {
+  acc[key] = value;
+  return acc;
+}
+
+const addProperties = (obj = {}, newProps = {}) => {
   return Object.entries(obj)
     .map(([key = '', value = {}]) => {
       return [key, Object.assign(value, newProps)];
@@ -296,7 +296,7 @@ function addProperties(obj = {}, newProps = {}) {
     .reduce(reduceEntriesToObject, {});
 }
 
-function mergeProperties(base = {}, decorator = {}) {
+const mergeProperties = (base = {}, decorator = {}) => {
   // const out = Object.assign(base, {});
   return Object.entries(base)
     .map(([key = '', value = {}]) => {
@@ -305,7 +305,7 @@ function mergeProperties(base = {}, decorator = {}) {
       }
       return [key, Object.assign(value, decorator[key])];
     })
-    .sort(([{}, a], [{}, b]) => {
+    .sort(([{ }, a], [{ }, b]) => {
       const { sortWeight: aSortWeight = 0 } = a;
       const { sortWeight: bSortWeight = 0 } = b;
 
@@ -335,4 +335,4 @@ const Link = (props = {}) => {
   );
 };
 
-export default decorateStyledSystemPros;
+export default decorateStyledSystemProps;

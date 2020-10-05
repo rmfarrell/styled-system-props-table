@@ -1,15 +1,12 @@
-import parsePropTypes from 'parse-prop-types';
-import { reduceEntriesToObject } from './helpers';
+import _parsePropTypes from 'parse-prop-types';
 
-function useParsePropTypes(component) {
-  return Object.entries(parsePropTypes(component))
+const parsePropTypes = (component) => {
+  return Object.entries(_parsePropTypes(component))
     .map(transformParsedProps)
     .reduce(reduceEntriesToObject, {});
 }
 
-// -- Helpers
-
-function transformParsedProps([key, value]) {
+const transformParsedProps = ([key, value]) => {
   const { required, defaultValue = {}, type = {} } = value;
   const defaultValueJson = JSON.stringify(defaultValue.value);
   const typeString = typeToString(type);
@@ -23,7 +20,7 @@ function transformParsedProps([key, value]) {
   ];
 }
 
-function typeToString(type) {
+const typeToString = (type) => {
   const { name = '', value = {} } = type;
   if (name === 'arrayOf') {
     return `${value.name}[]`;
@@ -41,4 +38,9 @@ function typeToString(type) {
   return name;
 }
 
-export default useParsePropTypes;
+const reduceEntriesToObject = (acc, [key, value]) => {
+  acc[key] = value;
+  return acc;
+}
+
+export default parsePropTypes;
