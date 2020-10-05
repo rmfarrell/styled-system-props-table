@@ -9,7 +9,7 @@
     "react": "^16.13.1"
   },
   "name": "styled-system-props-table",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Props table generator with styled-system decorator",
   "main": "index.js",
   "scripts": {
