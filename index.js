@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { variant } from 'styled-system';
 import { themeGet } from '@styled-system/theme-get';
-import parsePropTypes from './use-parse-prop-types';
-import decorateStyledSystemPros from './styled-system-decorator';
+import parsePropTypes from './parse-prop-types';
+import decorateStyledSystemProps from './styled-system-decorator';
+import PropRow from './PropRow'
 
-function PropsTable(props = {}) {
+const PropsTable = (props = {}) => {
   const { component } = props;
 
   const parsed = parsePropTypes(component);
@@ -16,7 +16,7 @@ function PropsTable(props = {}) {
 function StyledSystemPropsTable(props = {}) {
   const { component } = props;
 
-  const parsed = decorateStyledSystemPros(parsePropTypes(component));
+  const parsed = decorateStyledSystemProps(parsePropTypes(component));
 
   return <PropsTablePresentation {...props} data={parsed} />;
 }
@@ -43,9 +43,9 @@ function PropsTablePresentation(props = {}) {
           .filter(([key = '']) => !remove.includes(key))
           .map(([key = '', data = {}]) => {
             return (
-              <Prop key={key} name={key} {...data} variant="minor">
+              <PropRow key={key} name={key} {...data} variant="minor">
                 {data.desc}
-              </Prop>
+              </PropRow>
             );
           })}
       </tbody>
@@ -59,29 +59,6 @@ function PropsTablePresentation(props = {}) {
       return child;
     });
   }
-}
-
-function Prop(props = {}) {
-  const {
-    name = '',
-    type = [],
-    defaultValue = null,
-    required = false,
-    children,
-    ...rest
-  } = props;
-  const sep = ', ',
-    _type = Array.isArray(type) ? type.join(sep) : type;
-
-  return (
-    <StyledTr {...rest}>
-      <td>{name}</td>
-      <td>{_type}</td>
-      <td>{defaultValue}</td>
-      <td>{required ? 'x' : ''}</td>
-      <td>{children}</td>
-    </StyledTr>
-  );
 }
 
 // -- Styles
@@ -100,13 +77,11 @@ const StyledTable = styled.table`
   }
 `;
 
-const yMargin = '0.5rem';
-
 const StyledTHead = styled.thead`
   th {
     font-weight: bold;
     text-align: left;
-    padding: 1em 0 0.25em ${yMargin};
+    padding: 1em 0 0.25em 0.5rem;
     background: #333;
     color: #fff;
     font-weight: normal;
@@ -115,25 +90,4 @@ const StyledTHead = styled.thead`
   }
 `;
 
-const StyledTr = styled.tr`
-  opacity: ${({ verbose = false }) => (verbose ? 0.5 : 1)};
-  ${variant({
-    variants: {
-      minor: {
-        fontSize: '0.8em'
-      }
-    }
-  })}
-  td {
-    padding: ${({ variant = '' }) =>
-      variant === 'minor'
-        ? `0.5em 0 0.5em ${yMargin}`
-        : `0.75em 0 0.75em ${yMargin}`};
-  }
-`;
-
-/**
-name|default|required|desc|variant|weight
- */
-
-export { Prop, PropsTable, StyledSystemPropsTable };
+export { PropRow, PropsTable, StyledSystemPropsTable };
