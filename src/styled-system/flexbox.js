@@ -1,57 +1,63 @@
 import React from 'react'
 import Desc from '../LinkedDescription'
 
+const sortWeight = -50
+
 export default {
     flex: {
         description: <Desc utility="flexbox">flex</Desc>,
-        sortWeight: -50
+        sortWeight,
+        themeKey: 'sizes'
     },
     flexDirection: {
         description: <Desc utility="flexbox">flex-direction</Desc>,
-        sortWeight: -50
+        sortWeight,
     },
     flexGrow: {
         description: <Desc utility="flexbox">flex-grow</Desc>,
-        sortWeight: -50
+        sortWeight,
+        themeKey: 'sizes'
     },
     flexShrink: {
         description: <Desc utility="flexbox">flex-shrink</Desc>,
-        sortWeight: -50
+        sortWeight,
+        themeKey: 'sizes'
     },
     flexWrap: {
         description: <Desc utility="flexbox">flex-wrap</Desc>,
-        sortWeight: -50
+        sortWeight,
     },
     flexBasis: {
         description: <Desc utility="flexbox">flex-basis</Desc>,
-        sortWeight: -50
+        sortWeight,
+        themeKey: 'sizes'
     },
     alignItems: {
         description: <Desc utility="flexbox">align-items</Desc>,
-        sortWeight: -50
+        sortWeight
     },
     alignContent: {
         description: <Desc utility="flexbox">align-content</Desc>,
-        sortWeight: -50
+        sortWeight
     },
     justifyItems: {
         description: <Desc utility="flexbox">justify-items</Desc>,
-        sortWeight: -50
+        sortWeight
     },
     justifyContent: {
         description: <Desc utility="flexbox">justify-content</Desc>,
-        sortWeight: -50
+        sortWeight
     },
     justifySelf: {
         description: <Desc utility="flexbox">justify-self</Desc>,
-        sortWeight: -50
+        sortWeight
     },
     alignSelf: {
         description: <Desc utility="flexbox">align-self</Desc>,
-        sortWeight: -50
+        sortWeight
     },
     order: {
         description: <Desc utility="flexbox">order</Desc>,
-        sortWeight: -50
+        sortWeight
     }
 }

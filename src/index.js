@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import parsePropTypes from './parse-prop-types';
 import PropRow from './PropRow'
@@ -58,13 +58,21 @@ const StyledSystemPropsTable = ({ component, transformProps, ...rest }) => {
   return <PropsTablePresentation rows={rows} {...rest} />;
 }
 
+const LinkToTheme = ({ children, themeKey = '', ...rest }) => {
+  return <div {...rest}>{children}</div>
+}
+
 function PropsTablePresentation(props = {}) {
   const {
+    linkColor,
     rows = [],
     size,
+    theme,
     transformProps,
     ...rest
   } = props;
+
+  const [openModal, setOpenModal] = useState(true)
 
   return (
     <Table size={size} {...rest}>
@@ -73,8 +81,8 @@ function PropsTablePresentation(props = {}) {
           <TableCell><strong>Name</strong></TableCell>
           <TableCell><strong>Type</strong></TableCell>
           <TableCell><strong>Default</strong></TableCell>
-          <TableCell><strong>Required</strong></TableCell>
           <TableCell><strong>Description</strong></TableCell>
+          {theme && <TableCell><strong>Theme values</strong></TableCell>}
         </TableRow>
       </TableHead>
       <TableBody>
@@ -86,8 +94,16 @@ function PropsTablePresentation(props = {}) {
             if (aName < bName) return -1
           })
           .map(([key = '', data = {}]) => {
+            const { themeKey } = data
+            const themeValues = theme && theme[themeKey]
             return (
-              <PropRow key={key} {...data} name={key} >
+              <PropRow
+                {...data}
+                key={key}
+                $linkColor={linkColor}
+                name={key}
+                themeValues={themeValues}
+              >
                 {data.description}
               </PropRow>
             );
@@ -99,20 +115,15 @@ function PropsTablePresentation(props = {}) {
 
 PropsTablePresentation.defaultProps = {
   data: {},
-  size: "small"
+  size: "small",
 }
 
 // -- Styles
 
-const StyledTableContainer = styled(TableContainer)`
-  max-width: ${({ $maxWidth }) => $maxWidth};
-  ${typography};
-  ${sizing};
-  ${spacing};
-`
-
 PropsTable.propTypes = {
-  component: PropTypes.elementType
+  component: PropTypes.elementType.isRequired,
+  linkColor: PropTypes.string,
+  theme: PropTypes.object
 }
 
 

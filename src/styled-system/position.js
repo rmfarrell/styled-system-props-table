@@ -1,29 +1,31 @@
 import React from 'react'
 import Desc from '../LinkedDescription'
 
+const sortWeight = -90
+
 export default {
     position: {
         description: <Desc utility="position">position</Desc>,
-        sortWeight: -90
+        sortWeight
     },
     zIndex: {
         description: <Desc utility="position">z-index</Desc>,
-        sortWeight: -90
+        sortWeight
     },
     top: {
         description: <Desc utility="position">top</Desc>,
-        sortWeight: -90
+        sortWeight
     },
     right: {
         description: <Desc utility="position">right</Desc>,
-        sortWeight: -90
+        sortWeight
     },
     bottom: {
         description: <Desc utility="position">bottom</Desc>,
-        sortWeight: -90
+        sortWeight
     },
     left: {
         description: <Desc utility="position">left</Desc>,
-        sortWeight: -90
+        sortWeight
     }
 }
