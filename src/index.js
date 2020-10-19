@@ -1,94 +1,119 @@
 import React from 'react';
 import styled from 'styled-components';
-import { themeGet } from '@styled-system/theme-get';
 import parsePropTypes from './parse-prop-types';
-import decorateStyledSystemProps from './styled-system-decorator';
 import PropRow from './PropRow'
+import PropTypes from 'prop-types'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import { spacing, sizing, typography } from '@material-ui/system';
+import transformStyledSystemProps from './styled-system'
 
-const PropsTable = (props = {}) => {
-  const { component } = props;
+// @TODO: 
+// This import is required for this lib to work, apparently on each component
+// PR against parse-prop-types to remove this dependency
+// or write a new lib.
+import 'parse-prop-types';
 
-  const parsed = parsePropTypes(component);
-
-  return <PropsTablePresentation {...props} data={parsed} />;
+const entriesFromComponentProps = (component) => {
+  const props = parsePropTypes(component);
+  return Object.entries(props)
 }
 
-function StyledSystemPropsTable(props = {}) {
-  const { component } = props;
+const reduceProps = (entries, transformers = []) => {
+  return entries.reduce((acc, item) => {
+    let out = {
+      default: null,
+      description: "",
+      required: false,
+      sortWeight: 0,
+      type: ""
+    }
+    const [name, props] = item
 
-  const parsed = decorateStyledSystemProps(parsePropTypes(component));
+    transformers.forEach(transformer => {
+      const transformed = transformer(name, props)
+      if (!transformed) {
+        return
+      }
+      out = Object.assign(out, transformed)
+    })
 
-  return <PropsTablePresentation {...props} data={parsed} />;
+    return [...acc, [name, out]]
+  }, [])
+}
+
+const PropsTable = ({ component, transformProps = [], ...rest }) => {
+  const rows = reduceProps(entriesFromComponentProps(component), transformProps)
+
+  return <PropsTablePresentation rows={rows} {...rest} />;
+}
+
+const StyledSystemPropsTable = ({ component, transformProps, ...rest }) => {
+  const transformers = [transformStyledSystemProps, transformProps]
+  const rows = reduceProps(entriesFromComponentProps(component), transformers)
+  return <PropsTablePresentation rows={rows} {...rest} />;
 }
 
 function PropsTablePresentation(props = {}) {
-  const { data = {}, children = () => [] } = props;
-
-  let remove = [];
+  const {
+    rows = [],
+    size,
+    transformProps,
+    ...rest
+  } = props;
 
   return (
-    <StyledTable>
-      <StyledTHead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Default</th>
-          <th>Required</th>
-          <th>Notes</th>
-        </tr>
-      </StyledTHead>
-      <tbody>
-        {render(children(data))}
-        {Object.entries(data)
-          .filter(([key = '']) => !remove.includes(key))
+    <Table size={size} {...rest}>
+      <TableHead>
+        <TableRow>
+          <TableCell><strong>Name</strong></TableCell>
+          <TableCell><strong>Type</strong></TableCell>
+          <TableCell><strong>Default</strong></TableCell>
+          <TableCell><strong>Required</strong></TableCell>
+          <TableCell><strong>Description</strong></TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {rows
+          .sort(([aName, a], [bName, b]) => {
+            if (a.sortWeight < b.sortWeight) return 1
+            if (a.sortWeight > b.sortWeight) return -1
+            if (aName > bName) return 1
+            if (aName < bName) return -1
+          })
           .map(([key = '', data = {}]) => {
             return (
-              <PropRow key={key} name={key} {...data} variant="minor">
-                {data.desc}
+              <PropRow key={key} {...data} name={key} >
+                {data.description}
               </PropRow>
             );
           })}
-      </tbody>
-    </StyledTable>
+      </TableBody>
+    </Table>
   );
+}
 
-  function render(rows = []) {
-    return rows.map(child => {
-      child.props.name;
-      remove = [child.props.name, ...remove];
-      return child;
-    });
-  }
+PropsTablePresentation.defaultProps = {
+  data: {},
+  size: "small"
 }
 
 // -- Styles
 
-const StyledTable = styled.table`
-  font: 1em sans-serif;
-  border-collapse: collapse;
-  width: 100%;
+const StyledTableContainer = styled(TableContainer)`
+  max-width: ${({ $maxWidth }) => $maxWidth};
+  ${typography};
+  ${sizing};
+  ${spacing};
+`
 
-  td {
-    background: ${themeGet('tables.even-row-color', '#fff')};
-  }
-
-  tr:nth-child(even) td {
-    background: ${themeGet('tables.odd-row-color', '#efefef')};
-  }
-`;
-
-const StyledTHead = styled.thead`
-  th {
-    font-weight: bold;
-    text-align: left;
-    padding: 1em 0 0.25em 0.5rem;
-    background: #333;
-    color: #fff;
-    font-weight: normal;
-    text-transform: uppercase;
-    font-size: 0.8em;
-  }
-`;
+PropsTable.propTypes = {
+  component: PropTypes.elementType
+}
 
 
-export { PropRow, PropsTable, StyledSystemPropsTable };
+export { PropsTable, StyledSystemPropsTable };
