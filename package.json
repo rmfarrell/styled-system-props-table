@@ -20,7 +20,7 @@
     "react-dom": ">= 16"
   },
   "name": "styled-system-props-table",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Props table generator with styled-system decorator",
   "main": "dist/main.js",
   "scripts": {
