@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { themeGet } from '@styled-system/theme-get';
 import parsePropTypes from './parse-prop-types';
-import decorateStyledSystemProps from './styled-system-decorator';
 import PropRow from './PropRow'
 import PropTypes from 'prop-types'
 import Table from '@material-ui/core/Table';
@@ -11,7 +9,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import Paper from '@material-ui/core/Paper';
 import { spacing, sizing, typography } from '@material-ui/system';
 import transformStyledSystemProps from './styled-system'
 
@@ -20,23 +17,6 @@ import transformStyledSystemProps from './styled-system'
 // PR against parse-prop-types to remove this dependency
 // or write a new lib.
 import 'parse-prop-types';
-
-// const PropsTable = (props = {}) => {
-//   const { component,  } = props;
-
-//   const parsed = parsePropTypes(component);
-
-//   return <PropsTablePresentation {...props} data={parsed} />;
-// }
-
-// function StyledSystemPropsTable(props = {}) {
-//   const { component } = props;
-
-//   const parsed = decorateStyledSystemProps(parsePropTypes(component));
-
-//   return <PropsTablePresentation {...props} data={parsed} />;
-// }
-
 
 const entriesFromComponentProps = (component) => {
   const props = parsePropTypes(component);
@@ -85,8 +65,6 @@ function PropsTablePresentation(props = {}) {
     transformProps,
     ...rest
   } = props;
-
-  console.log(rows)
 
   return (
     <Table size={size} {...rest}>
