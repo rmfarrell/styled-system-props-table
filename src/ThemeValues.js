@@ -28,7 +28,7 @@ const StyledCode = styled.div`
 const HoverableStyledCode = styled(StyledCode)`
     cursor: pointer;
     text-decoration: underline;
-    color: ${({ $linkColor }) => themeGet(`colors.${$linkColor}`, 'inherit')};
+    color: ${({ $linkColor }) => $linkColor};
 `
 
 export default ThemeValues

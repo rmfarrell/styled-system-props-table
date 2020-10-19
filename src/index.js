@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import parsePropTypes from './parse-prop-types';
 import PropRow from './PropRow'
 import PropTypes from 'prop-types'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import { spacing, sizing, typography } from '@material-ui/system';
 import transformStyledSystemProps from './styled-system'
 
 // @TODO: 
@@ -56,10 +53,6 @@ const StyledSystemPropsTable = ({ component, transformProps, ...rest }) => {
   const transformers = [transformStyledSystemProps, transformProps]
   const rows = reduceProps(entriesFromComponentProps(component), transformers)
   return <PropsTablePresentation rows={rows} {...rest} />;
-}
-
-const LinkToTheme = ({ children, themeKey = '', ...rest }) => {
-  return <div {...rest}>{children}</div>
 }
 
 function PropsTablePresentation(props = {}) {

@@ -38,7 +38,7 @@ const PropRow = (props = {}) => {
 
 const StyledTableRow = styled(TableRow)`
   a {
-    color: ${({ $linkColor }) => themeGet(`colors.${$linkColor}`, 'red')};
+    color: ${({ $linkColor }) => $linkColor};
   }
 `
 
