@@ -1,53 +1,64 @@
 import React from 'react'
 import Desc from '../LinkedDescription'
 
+const sortWeight = -40
+
+const themeKey = 'sizes'
+
 export default {
     width: {
         description: <Desc utility="layout">width</Desc>,
-        sortWeight: -40
+        sortWeight,
+        themeKey
     },
     height: {
         description: <Desc utility="layout">height</Desc>,
-        sortWeight: -40
+        sortWeight,
+        themeKey
     },
     display: {
         description: <Desc utility="layout">display</Desc>,
-        sortWeight: -40
+        sortWeight
     },
     minWidth: {
         description: <Desc utility="layout">min-width</Desc>,
-        sortWeight: -40
+        sortWeight,
+        themeKey
     },
     minHeight: {
         description: <Desc utility="layout">min-height</Desc>,
-        sortWeight: -40
+        sortWeight,
+        themeKey
     },
     maxWidth: {
         description: <Desc utility="layout">max-width</Desc>,
-        sortWeight: -40
+        sortWeight,
+        themeKey
     },
     maxHeight: {
         description: <Desc uiltity="layout">max-height</Desc>,
-        sortWeight: -40
+        sortWeight,
+        themeKey
     },
     size: {
         description: <Desc uiltity="layout">width & height</Desc>,
-        sortWeight: -40
+        sortWeight,
+        themeKey
     },
     verticalAlign: {
         description: <Desc uiltity="layout">vetical-align</Desc>,
-        sortWeight: -40
+        sortWeight
     },
     overflow: {
         description: <Desc uiltity="layout">overflow</Desc>,
-        sortWeight: -40
+        sortWeight
     },
     overflowX: {
         description: <Desc uiltity="layout">overflow-x</Desc>,
-        sortWeight: -40
+        sortWeight
     },
     overflowY: {
         description: <Desc uiltity="layout">overflow-y</Desc>,
-        sortWeight: -40
+        sortWeight
     }
 }
