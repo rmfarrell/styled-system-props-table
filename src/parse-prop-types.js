@@ -1,6 +1,10 @@
 import _parsePropTypes from 'parse-prop-types';
 
 const parsePropTypes = (component) => {
+  if (!component) {
+    console.error('component required.')
+    return {}
+  }
   return Object.entries(_parsePropTypes(component))
     .map(transformParsedProps)
     .reduce(reduceEntriesToObject, {});
