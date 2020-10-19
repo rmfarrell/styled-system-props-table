@@ -2,7 +2,6 @@ import React from 'react'
 import Desc from '../LinkedDescription'
 
 const sortWeight = -40
-
 const themeKey = 'sizes'
 
 export default {

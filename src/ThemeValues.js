@@ -5,7 +5,7 @@ import { themeGet } from '@styled-system/theme-get'
 
 const ThemeValues = ({ values = {}, $linkColor }) => {
     const text = JSON.stringify(values)
-    const isTruncated = text.length > 25
+    const isTruncated = text.length > 18
     const expanded = isTruncated ? <pre>{JSON.stringify(values, null, 2)}</pre> : null
 
     return expanded ?

@@ -1,33 +1,40 @@
 import React from 'react'
 import Desc from '../LinkedDescription'
 
+const sortWeight = -30
+
 export default {
     fontFamily: {
         description: <Desc utility="typography">font-family</Desc>,
-        sortWeight: -30
+        sortWeight,
+        themeKey: 'fonts'
     },
     fontSize: {
         description: <Desc utility="typography">font-size</Desc>,
-        sortWeight: -30
+        sortWeight,
+        themeKey: 'fontSizes'
     },
     fontWeight: {
         description: <Desc utility="typography">font-weight</Desc>,
-        sortWeight: -30
+        sortWeight,
+        themeKey: 'fontWeights'
     },
     lineHeight: {
         description: <Desc utility="typography">line-height</Desc>,
-        sortWeight: -30
+        sortWeight,
+        themeKey: 'lineHeights'
     },
     letterSpacing: {
         description: <Desc utility="typography">letter-spacing</Desc>,
-        sortWeight: -30
+        sortWeight,
+        themeKey: 'letterSpacings'
     },
     textAlign: {
         description: <Desc utility="typography">text-align</Desc>,
-        sortWeight: -30
+        sortWeight,
     },
     fontStyle: {
         description: <Desc utility="typography">font-style</Desc>,
-        sortWeight: -30
+        sortWeight,
     }
 }
