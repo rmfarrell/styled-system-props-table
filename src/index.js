@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import parsePropTypes from './parse-prop-types';
 import PropRow from './PropRow'
@@ -12,6 +12,7 @@ import TableCell from '@material-ui/core/TableCell';
 import { spacing, sizing, typography } from '@material-ui/system';
 import transformStyledSystemProps from './styled-system'
 import ThemeTable from './ThemeTable'
+import ThemeModal from './ThemeModal'
 
 // @TODO: 
 // This import is required for this lib to work, apparently on each component
@@ -59,61 +60,75 @@ const StyledSystemPropsTable = ({ component, transformProps, ...rest }) => {
   return <PropsTablePresentation rows={rows} {...rest} />;
 }
 
+const LinkToTheme = ({ children, themeKey = '', ...rest }) => {
+  return <div {...rest}>{children}</div>
+}
+
 function PropsTablePresentation(props = {}) {
   const {
     rows = [],
     size,
+    theme,
     transformProps,
     ...rest
   } = props;
 
+  const [openModal, setOpenModal] = useState(true)
+
   return (
-    <Table size={size} {...rest}>
-      <TableHead>
-        <TableRow>
-          <TableCell><strong>Name</strong></TableCell>
-          <TableCell><strong>Type</strong></TableCell>
-          <TableCell><strong>Default</strong></TableCell>
-          <TableCell><strong>Required</strong></TableCell>
-          <TableCell><strong>Description</strong></TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {rows
-          .sort(([aName, a], [bName, b]) => {
-            if (a.sortWeight < b.sortWeight) return 1
-            if (a.sortWeight > b.sortWeight) return -1
-            if (aName > bName) return 1
-            if (aName < bName) return -1
-          })
-          .map(([key = '', data = {}]) => {
-            return (
-              <PropRow key={key} {...data} name={key} >
-                {data.description}
-              </PropRow>
-            );
-          })}
-      </TableBody>
-    </Table>
+    <>
+      <Table size={size} {...rest}>
+        <TableHead>
+          <TableRow>
+            <TableCell><strong>Name</strong></TableCell>
+            <TableCell><strong>Type</strong></TableCell>
+            <TableCell><strong>Default</strong></TableCell>
+            <TableCell><strong>Required</strong></TableCell>
+            <TableCell><strong>Description</strong></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows
+            .sort(([aName, a], [bName, b]) => {
+              if (a.sortWeight < b.sortWeight) return 1
+              if (a.sortWeight > b.sortWeight) return -1
+              if (aName > bName) return 1
+              if (aName < bName) return -1
+            })
+            .map(([key = '', data = {}]) => {
+              const { themeKey } = data
+              return (
+                <PropRow key={key} {...data} name={key} >
+                  {data.description}
+                  {theme && <StyledThemeKey themeKey={themeKey} ml="0.25em">
+                    (Theme key: {themeKey})
+                </StyledThemeKey>}
+                </PropRow>
+              );
+            })}
+        </TableBody>
+      </Table>
+      <ThemeModal open={openModal} onClose={() => setOpenModal(false)} theme={theme} />
+    </>
   );
 }
 
 PropsTablePresentation.defaultProps = {
   data: {},
-  size: "small"
+  size: "small",
 }
 
 // -- Styles
 
-const StyledTableContainer = styled(TableContainer)`
-  max-width: ${({ $maxWidth }) => $maxWidth};
-  ${typography};
-  ${sizing};
+const StyledThemeKey = styled(LinkToTheme)`
+  display: inline-block;
+  border: 1px solid red;
   ${spacing};
 `
 
 PropsTable.propTypes = {
-  component: PropTypes.elementType
+  component: PropTypes.elementType.isRequired,
+  theme: PropTypes.object
 }
 
 
