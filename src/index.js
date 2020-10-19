@@ -11,6 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { spacing, sizing, typography } from '@material-ui/system';
 import transformStyledSystemProps from './styled-system'
+import ThemeTable from './ThemeTable'
 
 // @TODO: 
 // This import is required for this lib to work, apparently on each component
@@ -116,4 +117,4 @@ PropsTable.propTypes = {
 }
 
 
-export { PropsTable, StyledSystemPropsTable };
+export { PropsTable, StyledSystemPropsTable, ThemeTable };
