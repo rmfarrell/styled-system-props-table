@@ -1,6 +1,6 @@
 {
   "name": "styled-system-props-table",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "description": "Props table generator with styled-system decorator",
   "main": "dist/main.js",
   "module": "dist/module.js",
