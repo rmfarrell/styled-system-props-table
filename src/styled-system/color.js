@@ -20,7 +20,7 @@ export default {
         ...rest
     },
     opacity: {
-        description: <Desc utility="opacity">background-color</Desc>,
+        description: <Desc utility="opacity">opacity</Desc>,
         ...rest
     }
 }
