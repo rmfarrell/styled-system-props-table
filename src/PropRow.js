@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
+import _TableCell from '@material-ui/core/TableCell';
 import PropTypes from 'prop-types'
 import ThemeValues from './ThemeValues'
 import { themeGet } from '@styled-system/theme-get'
@@ -23,9 +23,16 @@ const PropRow = (props = {}) => {
 
   const name = required ? <strong>{_name}*</strong> : _name
 
+  const tableCellProps = {
+    style: { verticalAlign: 'top' }
+  }
+
+  const TableCell = props => <_TableCell {...props} style={{ verticalAlign: 'top' }} />
+
   return (
     <StyledTableRow {...rest} $linkColor={$linkColor}>
-      <TableCell>{name}</TableCell>
+      <TableCell
+        style={{ verticalAlign: 'top' }}>{name}</TableCell>
       <TableCell>{_type}</TableCell>
       <TableCell>{defaultValue}</TableCell>
       <TableCell>{children}</TableCell>

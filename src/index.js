@@ -15,6 +15,8 @@ import transformStyledSystemProps from './styled-system'
 // or write a new lib.
 import 'parse-prop-types';
 
+const LINK_COLOR = "#3f51b5"
+
 const entriesFromComponentProps = (component) => {
   const props = parsePropTypes(component);
   return Object.entries(props)
@@ -57,15 +59,12 @@ const StyledSystemPropsTable = ({ component, transformProps, ...rest }) => {
 
 function PropsTablePresentation(props = {}) {
   const {
-    linkColor,
     rows = [],
     size,
     theme,
     transformProps,
     ...rest
   } = props;
-
-  const [openModal, setOpenModal] = useState(true)
 
   return (
     <Table size={size} {...rest}>
@@ -93,7 +92,7 @@ function PropsTablePresentation(props = {}) {
               <PropRow
                 {...data}
                 key={key}
-                $linkColor={linkColor}
+                $linkColor={LINK_COLOR}
                 name={key}
                 themeValues={themeValues}
               >

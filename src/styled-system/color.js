@@ -18,5 +18,9 @@ export default {
     backgroundColor: {
         description: <Desc utility="color">background-color</Desc>,
         ...rest
+    },
+    opacity: {
+        description: <Desc utility="opacity">background-color</Desc>,
+        ...rest
     }
 }
