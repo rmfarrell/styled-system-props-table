@@ -16,7 +16,6 @@ const PropRow = (props = {}) => {
     required = false,
     sortWeight,
     themeValues,
-    verbose,
     ...rest
   } = props;
   const sep = ', ',
